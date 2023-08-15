@@ -1686,8 +1686,7 @@ def restored_message(request_id, response, exception):
     try:
       error = json.loads(exception.content.decode('utf-8'))
       if error['error']['code'] == 400:
-        print("\nERROR: %s: %s. Skipping message restore."
-          % (error['error']['code'], error['error']['errors'][0]['message']))
+        print(f"\nSKIP {str(request_id)}: {error['error']['code']}: {error['error']['errors'][0]['message']}.")
         return
     except:
       pass
@@ -2228,10 +2227,7 @@ def main(argv):
       message_num = x[0]
       if not os.path.isfile(os.path.join(options.local_folder,
         message_filename)):
-        print('WARNING! file %s does not exist for message %s'
-          % (os.path.join(options.local_folder, message_filename),
-            message_num))
-        print('  this message will be skipped.')
+        print(f'SKIP {message_num}: file {message_filename} does not exist.')
         continue
       with open(os.path.join(options.local_folder, message_filename), 'rb') as f:
           full_message = f.read()
@@ -2543,9 +2539,7 @@ def main(argv):
         message_filename = x[2]
         if not os.path.isfile(os.path.join(options.local_folder,
           message_filename)):
-          print('WARNING! file %s does not exist for message %s' %
-            (os.path.join(options.local_folder, message_filename), message_num))
-          print('  this message will be skipped.')
+          print(f'SKIP {message_num}: file {message_filename} does not exist.')
           continue
         with open(os.path.join(options.local_folder, message_filename), 'rb') as f:
             full_message = f.read()
