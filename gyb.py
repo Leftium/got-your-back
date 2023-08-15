@@ -1907,7 +1907,7 @@ def cleanup_from(old_from):
 
 def message_hygiene(msg):
     '''Ensure Message-Id, Date and From headers are valid. Replace if not.'''
-    omsg = email.message_from_bytes(msg)
+    omsg = email.message_from_bytes(msg, policy=email.policy.SMTPUTF8)
     orig_id = omsg['message-id']
     orig_date = omsg['date']
     orig_from = omsg['from']
