@@ -2236,7 +2236,11 @@ def main(argv):
       with open(os.path.join(options.local_folder, message_filename), 'rb') as f:
           full_message = f.read()
       if options.cleanup:
-          full_message = message_hygiene(full_message)
+          try:
+            full_message = message_hygiene(full_message)
+          except Exception as e:
+            print(f'SKIP {message_num}: (cleanup {message_filename}) {e}.')
+            continue
       labels = []
       if not options.strip_labels:
         sqlcur.execute('SELECT DISTINCT label FROM labels WHERE message_num \
