@@ -1686,7 +1686,7 @@ def restored_message(request_id, response, exception):
     try:
       error = json.loads(exception.content.decode('utf-8'))
       if error['error']['code'] == 400:
-        print(f"\nSKIP {str(request_id)}: {error['error']['code']}: {error['error']['errors'][0]['message']}.")
+        print(f"SKIP {str(request_id)}: [{error['error']['code']}] {error['error']['errors'][0]['message']}.")
         return
     except:
       pass
